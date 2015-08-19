@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="resteasy-guice-mybatis-demo:war exploded">
+    <output-path>$PROJECT_DIR$/web</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="resteasy-guice-mybatis-demo/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="resteasy-guice-mybatis-demo" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
