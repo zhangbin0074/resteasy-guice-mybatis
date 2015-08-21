@@ -23,7 +23,8 @@
     <meta http-equiv="expires" content="0">
   </head>
   <body>
-        This is my first jsp page.<br/>
+        <a href="admin/admin.jsp">后台管理系统</a><br/>
+        <a href="desktop/desktok.jsp">前端</a><br/>
   </body>
 </html>
 

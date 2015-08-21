@@ -1,11 +1,13 @@
 package com.yike.guice;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.yike.mybatis.User;
-import com.yike.mybatis.UserDao;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.yike.iwuse.guice.AppModule;
+import com.yike.iwuse.mybatis.User;
+import com.yike.iwuse.mybatis.UserDao;
 
 /**
  * Created by hunkier on 15/8/19.

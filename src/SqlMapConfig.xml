@@ -19,6 +19,6 @@
 
     <!-- 配置mapper映射文件 -->
     <mappers>
-        <mapper resource="com/yike/mybatis/UserMapper.xml"/>
+        <mapper resource="com/yike/iwuse/mybatis/UserMapper.xml"/>
     </mappers>
 </configuration>

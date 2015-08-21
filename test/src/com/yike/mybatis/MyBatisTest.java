@@ -1,13 +1,17 @@
 package com.yike.mybatis;
 
+import java.io.InputStream;
+import java.util.List;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.util.List;
+import com.yike.iwuse.mybatis.User;
+import com.yike.iwuse.mybatis.UserDao;
+import com.yike.iwuse.mybatis.UserDaoImpl;
 
 /**
  * Created by hunkier on 15/8/19.
