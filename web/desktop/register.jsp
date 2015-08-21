@@ -21,6 +21,33 @@
     <meta http-equiv="expires" content="0">
 </head>
 <body>
-This is my first jsp page.<br/>
+<form action="rest/" method="post">
+    <table align="center" border="1" cellpadding="3" cellspacing="0">
+        <tr>
+            <td>用户名</td>
+            <td>
+                <input type="text" id="userName" name="userName"/>
+            </td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td>
+                <input  type="password" id="password" name="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>确认密码</td>
+            <td>
+                <input  type="password" id="rePassword" name="rePassword"/>
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>
+                <input type="text" id="email" name="email"/>
+            </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
