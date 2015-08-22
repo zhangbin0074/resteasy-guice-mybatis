@@ -9,9 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.yike.iwuse.mybatis.User;
-import com.yike.iwuse.mybatis.UserDao;
-import com.yike.iwuse.mybatis.UserDaoImpl;
+import com.yike.iwuse.dao.UserDao;
+import com.yike.iwuse.dao.impl.UserDaoImpl;
+import com.yike.iwuse.entity.User;
 
 /**
  * Created by hunkier on 15/8/19.
@@ -19,7 +19,7 @@ import com.yike.iwuse.mybatis.UserDaoImpl;
 public class MyBatisTest {
     // 会话工厂
     private SqlSessionFactory sqlSessionFactory;
-    private String resource = "SqlMapConfig.xml";
+    private String resource = "mybatis-config.xml";
 
     @Before
     public void setup()throws  Exception{
@@ -37,9 +37,9 @@ public class MyBatisTest {
         UserDao userDao = new UserDaoImpl(sqlSessionFactory);
 
         // 调用dao方法
-        User user = userDao.findUserByid(1);
+        User user = userDao.findUserById(1);
         System.out.println(user);
-        user = userDao.findUserByid(2);
+        user = userDao.findUserById(2);
         System.out.println(user);
     }
 

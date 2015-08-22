@@ -1,31 +1,32 @@
-package com.yike.iwuse.mybatis;
+package com.yike.iwuse.mappers;
+
+import com.yike.iwuse.entity.User;
 
 import java.util.List;
 
 /**
- * 用户管理Dao
- * Created by hunk on 2015/8/18.
+ * Created by hunkier on 15/8/23.
  */
-public interface UserDao {
+public interface UserMapper {
     /**
      * 根据用户id查询用户信息
      * @param id
      * @return
      * @throws Exception
      */
-    public User findUserByid(int id) throws  Exception;
+    public User findUserById(int id) ;
 
     /**
      * 添加用户
      * @param user
      * @throws Exception
      */
-    public void insertUser(User user) throws  Exception;
+    public void insertUser(User user) ;
 
     /**
      * 查询用户列表
      * @return
      * @throws Exception
      */
-    public List<User> findUserList() throws  Exception;
+    public List<User> findUserList() ;
 }

@@ -6,64 +6,75 @@
  */
 package com.yike.iwuse.guice;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
-import com.google.inject.Scopes;
-import com.google.inject.servlet.GuiceFilter;
-import com.google.inject.servlet.ServletModule;
-import com.yike.iwuse.filter.EncodingFilter;
-import com.yike.iwuse.filter.LoginFilter;
-import com.yike.iwuse.mybatis.UserDao;
-import com.yike.iwuse.mybatis.UserDaoImpl;
-import com.yike.iwuse.resteasy.UserService;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Set;
+
+import com.yike.iwuse.mybatis.BatisModule;
+import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
+import com.google.inject.Binder;
+import com.google.inject.Module;
+import com.yike.iwuse.mybatis.MybatisModule;
 
-public class AppModule extends ServletModule {
-
+public class AppModule implements Module {
+	
+	private static final Logger log = LoggerFactory.getLogger(AppModule.class);
 
     @Override
+    public void configure(Binder binder) {
+    	binder.install(new MybatisModule());
+//    	binder.install(new BatisModule());
+
+    	
+		// register dao components
+		for (final Class daoClass : getClasses("com.yike.iwuse.dao")) {
+			if (daoClass.isInterface()) {
+				log.debug("****  - - - - Registering dao component {}",daoClass);
+				bindClass(binder, daoClass);
+			}
+		}
+		
+		// register service components
+		for (final Class daoClass : getClasses("com.yike.iwuse.service")) {
+			if (daoClass.isInterface()) {
+				log.debug("----  - - - - Registering service component {}",daoClass);
+				bindClass(binder, daoClass);
+			}
+		}
+		
+//		init(binder);
+       
+    }
+
     protected void configureServlets() {
-        init();
+//        init();
     }
 
-    protected void init() {
-
-        // servlet
-        serve("/rest/*").with(com.yike.iwuse.resteasy.HttpServletDispatcher.class);
-
-        // filter
-        filter("/*").through(EncodingFilter.class);
-//        filter("/*").through(GuiceFilter.class);
-        filter("/rest/*").through(LoginFilter.class);
-
-        //
 
 
-        //add configuration logic here
-        final Binder binder = binder();
-        System.out.println("AppModule.configure . . . . . . . .. . ");
-        // binder interface
-        binder.bind(UserDao.class).to(UserDaoImpl.class).in(Scopes.SINGLETON);
+	private void bindClass(final Binder binder, final Class classToBind) {
 
-        binder.bind(UserService.class);
+		// don't bind anonymous classes
+		if (classToBind.isAnonymousClass()) return;
 
-        try {
-            // 加载配置文件
-            InputStream in = Resources.getResourceAsStream("SqlMapConfig.xml");
-            // 根据mybatis的配置创建SqlSessionFactory
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
-            // binder instance not class
-            binder.bind(SqlSessionFactory.class).toInstance(sqlSessionFactory);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		// don't bind annotations
+		if (classToBind.isAnnotation()) return;
 
+		binder.bind(classToBind);
 
+	}
 
-    }
+	private Set<Class<? extends Class>> getClasses(String packageName) {
+
+		return new ResolverUtil<Class>()
+				.find(new ResolverUtil.IsA(Object.class), packageName)
+				.getClasses();
+
+	}
 }
