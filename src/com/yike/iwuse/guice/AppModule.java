@@ -6,21 +6,17 @@
  */
 package com.yike.iwuse.guice;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Set;
 
-import com.yike.iwuse.mybatis.BatisModule;
 import org.apache.ibatis.io.ResolverUtil;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.yike.iwuse.mybatis.MybatisModule;
+import com.yike.iwuse.mybatis.BatisModule;
+import com.yike.iwuse.resources.UserResource;
+import com.yike.iwuse.services.UserService;
 
 public class AppModule implements Module {
 	
@@ -28,34 +24,27 @@ public class AppModule implements Module {
 
     @Override
     public void configure(Binder binder) {
-    	binder.install(new MybatisModule());
-//    	binder.install(new BatisModule());
+    	binder.install(new BatisModule());
 
     	
-		// register dao components
-		for (final Class daoClass : getClasses("com.yike.iwuse.dao")) {
-			if (daoClass.isInterface()) {
-				log.debug("****  - - - - Registering dao component {}",daoClass);
-				bindClass(binder, daoClass);
-			}
-		}
-		
-		// register resources components
-		for (final Class daoClass : getClasses("com.yike.iwuse.resources")) {
-			if (daoClass.isInterface()) {
-				log.debug("----  - - - - Registering resources component {}",daoClass);
-				bindClass(binder, daoClass);
-			}
-		}
-		
-//		init(binder);
+		// 注册services到Guice
+    	bindClassesInPackage(binder, UserService.class.getPackage());
+    	// 注册resources到Guice
+    	bindClassesInPackage(binder, UserResource.class.getPackage());
+
        
     }
 
-	private void bindClasses(Binder binder,String packageName){
+    /**
+     * 注册包(packages)下所有的类到Guice
+     * @param binder
+     * @param packages
+     */
+	private void bindClassesInPackage(Binder binder,Package packages){
+		String packageName = packages.getName();
 		Set<Class<? extends Class>> classes = getClasses(packageName);
 		for (Class clazz : classes) {
-			if (clazz.getPackage().getName().equals(packageName) ){
+			if (clazz.getPackage().getName().equals(packageName) ){// 包名相同才注册
 				log.debug("Registering packageName component {}",clazz);
 				bindClass(binder,clazz);
 			}else{
@@ -66,16 +55,16 @@ public class AppModule implements Module {
 
 
 	/**
-	 * 注册类
+	 * 注册类到Guice
 	 * @param binder
 	 * @param classToBind
 	 */
 	private void bindClass(final Binder binder, final Class classToBind) {
 
-		// don't bind anonymous classes
+		// don't bind anonymous classes  匿名内部类
 		if (classToBind.isAnonymousClass()) return;
 
-		// don't bind annotations
+		// don't bind annotations 注解定义类
 		if (classToBind.isAnnotation()) return;
 
 		binder.bind(classToBind);

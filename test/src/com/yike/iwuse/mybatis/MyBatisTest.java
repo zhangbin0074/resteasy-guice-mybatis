@@ -1,4 +1,4 @@
-package com.yike.mybatis;
+package com.yike.iwuse.mybatis;
 
 import java.io.InputStream;
 import java.util.List;
@@ -9,9 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.yike.iwuse.dao.UserDao;
-import com.yike.iwuse.dao.impl.UserDaoImpl;
 import com.yike.iwuse.entity.User;
+import com.yike.iwuse.mappers.UserMapper;
 
 /**
  * Created by hunkier on 15/8/19.
@@ -33,23 +32,25 @@ public class MyBatisTest {
     }
     @Test
     public  void testFindUserById() throws  Exception{
-        // 构建dao对象
-        UserDao userDao = new UserDaoImpl(sqlSessionFactory);
+    	// 构建mpper对象
+    	UserMapper userMapper = sqlSessionFactory.openSession().getMapper(UserMapper.class);
+       
 
-        // 调用dao方法
-        User user = userDao.findUserById(1);
+        // 调用mapper方法
+        User user = userMapper.findUserById(1);
         System.out.println(user);
-        user = userDao.findUserById(2);
+        user = userMapper.findUserById(2);
         System.out.println(user);
     }
 
     @Test
     public  void testFindUserList() throws  Exception{
-        // 构建dao对象
-        UserDao userDao = new UserDaoImpl(sqlSessionFactory);
+        // 构建mpper对象
+        UserMapper userMapper = sqlSessionFactory.openSession().getMapper(UserMapper.class);
+        
 
-        // 调用dao方法
-        List<User> list = userDao.findUserList();
+        // 调用mppper方法
+        List<User> list = userMapper.findUserList();
         System.out.println(list);
 
 

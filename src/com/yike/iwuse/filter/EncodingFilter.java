@@ -10,8 +10,7 @@ import java.io.IOException;
  * 编码过滤器
  * Created by hunk on 2015/8/20.
  */
-// @WebFilter(filterName = "EncodingFilter", urlPatterns = {"/*"})
-    @Singleton
+ @WebFilter(filterName = "EncodingFilter", urlPatterns = {"/*"})
 public class EncodingFilter implements Filter {
     private final static String ENCODEING = "UTF-8";
     public void destroy() {

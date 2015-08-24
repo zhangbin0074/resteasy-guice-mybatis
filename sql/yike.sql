@@ -4,7 +4,10 @@ create database yike default character set utf8;
 drop database yike;
 
 -- 创建数据库管理用户
-grant all privileges  on yike.*  to 'yike'@'&' identified by'123456';
+insert into mysql.user(Host,User,Password) values('localhost','yike', password('123456'));
+insert into mysql.user(Host,User,Password) values('%','yike', password('123456'));
+grant all privileges  on yike.*  to 'yike'@'%' identified by'123456';
+
 -- 刷新权限
 flush privileges;
 
