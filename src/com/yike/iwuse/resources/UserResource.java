@@ -1,14 +1,12 @@
 package com.yike.iwuse.resources;
 
-import java.util.List;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import com.google.inject.ImplementedBy;
-import com.yike.iwuse.entity.User;
 import com.yike.iwuse.resources.impl.UserResourceImpl;
 @ImplementedBy(UserResourceImpl.class)
 @Path("user")
@@ -22,7 +20,7 @@ public interface UserResource {
     @GET
     @Path("/user/{id}")
     @Produces("application/json")
-    public User getById(@PathParam("id")int id)throws Exception;
+    public Response getById(@PathParam("id")int id)throws Exception;
     
     /**
      * 获取所有用户列表
@@ -31,7 +29,7 @@ public interface UserResource {
     @GET
     @Path("/users")
     @Produces("application/json")
-    public List<User> getAll()throws  Exception;
+    public Response getAll()throws  Exception;
     
     /**
      * 获取用户传入的信息
@@ -40,7 +38,7 @@ public interface UserResource {
      */
     @GET
     @Path("/trans/{msg}")
-    public String getMessage(@PathParam("msg")String msg) throws Exception;
+    public Response getMessage(@PathParam("msg")String msg) throws Exception;
 
      /**
      * 获取用户传入的信息
@@ -48,7 +46,7 @@ public interface UserResource {
      */
     @GET
     @Path("/*")
-    public String test() throws Exception;
+    public Response test() throws Exception;
 
 
 

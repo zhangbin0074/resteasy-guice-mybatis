@@ -2,6 +2,9 @@ package com.yike.iwuse.resources.impl;
 
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import com.google.inject.Inject;
 import com.yike.iwuse.entity.User;
 import com.yike.iwuse.resources.UserResource;
@@ -17,8 +20,9 @@ public class UserResourceImpl implements UserResource {
      * @return
      */
     @Override
-    public User getById(int id) throws Exception {
-    	return userService.getById(id);
+    public Response getById(int id) throws Exception {
+    	User user = userService.getById(id);
+    	return Response.status(Status.OK).entity(user).build();
     }
 
     /**
@@ -27,8 +31,9 @@ public class UserResourceImpl implements UserResource {
      * @return
      */
     @Override
-    public List<User> getAll() throws Exception {
-    	return userService.getAll();
+    public Response getAll() throws Exception {
+    	List<User> users = userService.getAll();
+    	return Response.status(Status.OK).entity(users).build();
     }
 
     /**
@@ -38,8 +43,9 @@ public class UserResourceImpl implements UserResource {
      * @return
      */
     @Override
-    public String getMessage(String msg) throws Exception {
-        return userService.getMessage(msg);
+    public Response getMessage(String msg) throws Exception {
+    	String msgResult = userService.getMessage(msg);
+    	return Response.status(Status.OK).entity(msgResult).build();
     }
 
     /**
@@ -48,7 +54,8 @@ public class UserResourceImpl implements UserResource {
      * @return
      */
     @Override
-    public String test() throws Exception {
-        return userService.test();
+    public Response test() throws Exception {
+    	String msgResult = userService.test();
+    	return Response.status(Status.OK).entity(msgResult).build();
     }
 }
