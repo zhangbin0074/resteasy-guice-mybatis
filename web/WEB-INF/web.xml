@@ -11,7 +11,7 @@
 
 
 
-	<!-- Auto scan rest service -->
+	<!-- Auto scan rest resources -->
 	<context-param>
 		<param-name>resteasy.scan</param-name>
 		<param-value>true</param-value>
@@ -26,7 +26,7 @@
 
 	<!--<context-param> -->
 	<!--<param-name>resteasy.resources</param-name> -->
-	<!--<param-value>com.yike.iwuse.resteasy.UserService</param-value> -->
+	<!--<param-value>com.yike.iwuse.resteasy.UserResource</param-value> -->
 	<!--</context-param> -->
 
 

@@ -14,12 +14,6 @@ public class MybatisModule extends XMLMyBatisModule{
         setClassPathResource("mybatis-config.xml");
         setEnvironmentId("development");
 
-        new org.mybatis.guice.MyBatisModule(){
-            @Override
-            protected void initialize() {
-
-            }
-        };
     }
 
     

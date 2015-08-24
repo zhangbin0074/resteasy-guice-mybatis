@@ -40,10 +40,10 @@ public class AppModule implements Module {
 			}
 		}
 		
-		// register service components
-		for (final Class daoClass : getClasses("com.yike.iwuse.service")) {
+		// register resources components
+		for (final Class daoClass : getClasses("com.yike.iwuse.resources")) {
 			if (daoClass.isInterface()) {
-				log.debug("----  - - - - Registering service component {}",daoClass);
+				log.debug("----  - - - - Registering resources component {}",daoClass);
 				bindClass(binder, daoClass);
 			}
 		}
@@ -52,12 +52,24 @@ public class AppModule implements Module {
        
     }
 
-    protected void configureServlets() {
-//        init();
-    }
+	private void bindClasses(Binder binder,String packageName){
+		Set<Class<? extends Class>> classes = getClasses(packageName);
+		for (Class clazz : classes) {
+			if (clazz.getPackage().getName().equals(packageName) ){
+				log.debug("Registering packageName component {}",clazz);
+				bindClass(binder,clazz);
+			}else{
+				// 子包中的类不注册
+			}
+		}
+	}
 
 
-
+	/**
+	 * 注册类
+	 * @param binder
+	 * @param classToBind
+	 */
 	private void bindClass(final Binder binder, final Class classToBind) {
 
 		// don't bind anonymous classes
@@ -70,8 +82,12 @@ public class AppModule implements Module {
 
 	}
 
+	/**
+	 * 获取包名下所有的类
+	 * @param packageName
+	 * @return
+	 */
 	private Set<Class<? extends Class>> getClasses(String packageName) {
-
 		return new ResolverUtil<Class>()
 				.find(new ResolverUtil.IsA(Object.class), packageName)
 				.getClasses();

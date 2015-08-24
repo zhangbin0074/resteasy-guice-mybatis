@@ -1,9 +1,9 @@
-package com.yike.iwuse.service.impl;
+package com.yike.iwuse.services.impl;
 
 import com.google.inject.Inject;
 import com.yike.iwuse.dao.UserDao;
 import com.yike.iwuse.entity.User;
-import com.yike.iwuse.service.UserService;
+import com.yike.iwuse.services.UserService;
 
 import java.util.List;
 

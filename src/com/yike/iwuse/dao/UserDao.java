@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.inject.ImplementedBy;
 import com.yike.iwuse.dao.impl.UserDaoImpl;
 import com.yike.iwuse.entity.User;
-import com.yike.iwuse.service.impl.UserServiceImpl;
 
 /**
  * 用户管理Dao

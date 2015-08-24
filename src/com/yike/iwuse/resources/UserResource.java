@@ -1,4 +1,4 @@
-package com.yike.iwuse.service;
+package com.yike.iwuse.resources;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import javax.ws.rs.Produces;
 
 import com.google.inject.ImplementedBy;
 import com.yike.iwuse.entity.User;
-import com.yike.iwuse.service.impl.UserServiceImpl;
-@ImplementedBy(UserServiceImpl.class)
+import com.yike.iwuse.resources.impl.UserResourceImpl;
+@ImplementedBy(UserResourceImpl.class)
 @Path("user")
-public interface UserService {
+public interface UserResource {
 	
 	 /**
      * 获取指定id的用户信息
